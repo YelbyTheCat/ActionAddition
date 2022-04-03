@@ -25,6 +25,8 @@ public class actionAddition : EditorWindow
     string folderPath = "";
     string[] files;
 
+    bool writeDefaults = false;
+
     [MenuItem("Yelby/Action Addition")]
     public static void ShowWindow()
     {
@@ -32,7 +34,7 @@ public class actionAddition : EditorWindow
     }
     public void OnGUI()
     {
-        GUILayout.Label("Version: 1.3");
+        GUILayout.Label("Version: 1.4");
 
         avatar = EditorGUILayout.ObjectField("Avatar: ", avatar, typeof(GameObject), true) as GameObject;
         if(avatar != null)
@@ -65,6 +67,7 @@ public class actionAddition : EditorWindow
             AddFolder();
         GUILayout.EndHorizontal();
 
+        writeDefaults = EditorGUILayout.Toggle("Write Defaults", writeDefaults);
 
         if (AnimationClipList.Count != 0 && AnimationClipList[0] != null)
         {
@@ -354,7 +357,7 @@ public class actionAddition : EditorWindow
             if (stateMachine.states[i].state.name == motion.name)
             {
                 stateMachine.states[i].state.motion = motion;
-                stateMachine.states[i].state.writeDefaultValues = false;
+                stateMachine.states[i].state.writeDefaultValues = writeDefaults;
                 break;
             }
         }
